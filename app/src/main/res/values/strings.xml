@@ -11,6 +11,8 @@
     <string name="tampa_fl_longitude">-82.35247063318803</string>
     <string name="hss_latitude">40.0754970002147</string>
     <string name="hss_longitude">-106.1058117252056</string>
+    <string name="deer_shack_latitude">46.91222161072262</string>
+    <string name="deer_shack_longitude">-93.31849100281036</string>
     <string name="weather_api_key">f744e61d0e8ea150e94ef4d0df30ccba</string>
     <string name="weather_temp">Temp: %1$s</string>
     <string name="weather_skies">Skies: %1$s - %2$s%3$s</string>

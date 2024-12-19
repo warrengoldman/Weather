@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     private val hssWeatherCache: WeatherCache by lazy {
         WeatherCache(0, cronetEngine, getWeatherApiUrl(getString(R.string.hss_latitude), getString(R.string.hss_longitude)))
     }
+    private val deerShackWeatherCache: WeatherCache by lazy {
+        WeatherCache(0, cronetEngine, getWeatherApiUrl(getString(R.string.deer_shack_latitude), getString(R.string.deer_shack_longitude)))
+    }
     private lateinit var binding: ActivityMainBinding
     fun getWeatherApiUrl(lat: String, lon: String): String {
         val aUrl =
@@ -59,10 +62,11 @@ class MainActivity : AppCompatActivity() {
                 1 -> Weather1Fragment(ridgesWeatherCache, binding.textView)
                 2 -> Weather1Fragment(tampaWeatherCache, binding.textView)
                 3 -> Weather1Fragment(hssWeatherCache, binding.textView)
+                4 -> Weather1Fragment(deerShackWeatherCache, binding.textView)
                 else -> Weather1Fragment(rivieraWeatherCache, binding.textView)
             }
         }
 
-        override fun getItemCount(): Int = 5
+        override fun getItemCount(): Int = 6
     }
 }
