@@ -10,7 +10,7 @@ import com.example.weather.databinding.FragmentWeather1Binding
 import com.example.weather.weather.WeatherCache
 import kotlin.concurrent.thread
 
-class Weather1Fragment(val weatherCache: WeatherCache, val textView: TextView) : Fragment() {
+class Weather1Fragment(val weatherCache: WeatherCache, val textView: TextView, val tabText: String) : Fragment() {
     private lateinit var binding: FragmentWeather1Binding
     private val weather1Adapter = Weather1Adapter()
     private var weatherLocationText: String? = null
