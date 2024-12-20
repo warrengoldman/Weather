@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
         binding.textView.setOnClickListener {
             showDeleteWeatherLocationDialog()
         }
+        binding.buttonAdd.setOnClickListener{
+            showAddWeatherLocationDialog()
+        }
     }
 
     private fun showDeleteWeatherLocationDialog() {
@@ -53,9 +56,10 @@ class MainActivity : AppCompatActivity() {
         val bsd = BottomSheetDialog(this)
         bsd.setContentView(dialogBinding.root)
         dialogBinding.buttonDelete.setOnClickListener {
-            removeWeatherLocation("tampa")
+            val selectedTabPosition = binding.tabLayout.selectedTabPosition
+            removeWeatherLocation(frags.get(selectedTabPosition)?.tabText.toString())
+            binding.tabLayout.removeTab(binding.tabLayout.getTabAt(selectedTabPosition)!!)
             bsd.dismiss()
-            adapter.notifyDataSetChanged()
         }
         dialogBinding.buttonDeleteCancel.setOnClickListener {
             bsd.dismiss()
@@ -107,38 +111,6 @@ class MainActivity : AppCompatActivity() {
                 frags.size, createWeather1Fragment(lat, lon, tabText)
             )
         }
-//        frags.put(
-//            frags.size, createWeather1Fragment(
-//                getString(R.string.waconia_latitude),
-//                getString(R.string.waconia_longitude), "Waconia"
-//            )
-//        )
-//        frags.put(
-//            frags.size, createWeather1Fragment(
-//                getString(R.string.ridges_latitude),
-//                getString(R.string.ridges_longitude), "Ridges"
-//            )
-//        )
-//        frags.put(
-//            frags.size, createWeather1Fragment(
-//                getString(R.string.tampa_fl_latitude),
-//                getString(R.string.tampa_fl_longitude), "Tampa"
-//            )
-//        )
-//        frags.put(
-//            frags.size, createWeather1Fragment(
-//                getString(R.string.hss_latitude),
-//                getString(R.string.hss_longitude), "HSS"
-//            )
-//        )
-//        frags.put(
-//            frags.size, createWeather1Fragment(
-//                getString(R.string.deer_shack_latitude),
-//                getString(R.string.deer_shack_longitude), "Deer Shack"
-//            )
-//        )
-//        frags.put(frags.size, createWeather1Fragment(getString(R.string.riviera_fl_latitude),
-//            getString(R.string.riviera_fl_longitude), "Jensen Beach"))
         return frags
     }
 

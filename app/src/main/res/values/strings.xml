@@ -1,18 +1,6 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="main_page_intro_msg">Five day forecast for %1$s</string>
-    <string name="waconia_latitude">44.84783224393458</string>
-    <string name="waconia_longitude">-93.79777267289118</string>
-    <string name="ridges_latitude">44.63413914250257</string>
-    <string name="ridges_longitude">-93.61272970859592</string>
-    <string name="riviera_fl_latitude">26.788749437166604</string>
-    <string name="riviera_fl_longitude">-80.0332345467304</string>
-    <string name="tampa_fl_latitude">28.231057575645114</string>
-    <string name="tampa_fl_longitude">-82.35247063318803</string>
-    <string name="hss_latitude">40.0754970002147</string>
-    <string name="hss_longitude">-106.1058117252056</string>
-    <string name="deer_shack_latitude">46.91222161072262</string>
-    <string name="deer_shack_longitude">-93.31849100281036</string>
     <string name="weather_api_key">f744e61d0e8ea150e94ef4d0df30ccba</string>
     <string name="weather_temp">Temp: %1$s</string>
     <string name="weather_skies">Skies: %1$s - %2$s%3$s</string>
@@ -23,6 +11,7 @@
     <string name="coordinates_hint">latitude, longitude from gmaps (xx.xxx…, yy.yyy…)</string>
     <string name="coordinates_tab_text">Text to identify latitude longitude location</string>
     <string name="save">Save</string>
+    <string name="add">Add Weather Location</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
 </resources>
