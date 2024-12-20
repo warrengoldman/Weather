@@ -116,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         val position = frags.size
         frags.put(position, fragment)
         adapter.createFragment(position)
+        adapter.notifyDataSetChanged()
         return fragment
     }
 
