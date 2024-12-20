@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         bsd.setContentView(dialogBinding.root)
         dialogBinding.buttonSave.setOnClickListener {
             val coords = dialogBinding.editTextCoordinates.text.toString().split(",")
-            val lat = coords[0]
-            val lon = coords[1]
+            val lat = coords[0].trim()
+            val lon = coords[1].trim()
             addWeather1Fragment(lat, lon, dialogBinding.editTextTabText.text.toString())
             bsd.dismiss()
         }
