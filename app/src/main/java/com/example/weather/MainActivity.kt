@@ -126,7 +126,11 @@ class MainActivity : AppCompatActivity() {
                 longState = queryTokens[1]
             }
             var rem = getRemainderAfterElementTwo(queryTokens)
-            processedQuery = "${queryTokens[0]}, $longState, US$rem"
+            var cntry = ""
+            if (queryTokens.size < 3) {
+                cntry = ", US"
+            }
+            processedQuery = "${queryTokens[0]}, $longState$cntry$rem"
         }
         val url = "${getString(R.string.geo_general_query)}$processedQuery&appid=${getString(R.string.weather_api_key)}"
         return url
