@@ -23,5 +23,6 @@
     <string name="coordinates_hint">latitude, longitude from gmaps (xx.xxx…, yy.yyy…)</string>
     <string name="coordinates_tab_text">Text to identify latitude longitude location</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
 </resources>
