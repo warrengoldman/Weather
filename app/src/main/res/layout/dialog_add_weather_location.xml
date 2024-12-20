@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <EditText
+        android:id="@+id/edit_text_coordinates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/coordinates_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_text_tab_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/coordinates_tab_text"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_coordinates"
+        app:layout_constraintBottom_toTopOf="@id/button_save" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save"
+        style="@style/ThemeOverlay.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_tab_text"
+        app:layout_constraintBottom_toTopOf="@id/button_cancel"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_cancel"
+        style="@style/ThemeOverlay.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_save" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,4 +20,8 @@
     <string name="weather_icon">weather icon</string>
     <string name="weather_api_url">http://api.openweathermap.org/data/2.5/forecast</string>
     <string name="sunset">Sunset: %1$s</string>
+    <string name="coordinates_hint">latitude, longitude from gmaps (xx.xxx…, yy.yyy…)</string>
+    <string name="coordinates_tab_text">Text to identify latitude longitude location</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
