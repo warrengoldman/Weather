@@ -18,8 +18,6 @@ import com.example.weather.weather.WeatherCache
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import org.chromium.net.CronetEngine
-import kotlin.concurrent.thread
-
 
 class MainActivity : AppCompatActivity() {
     private val cronetEngine: CronetEngine by lazy {
@@ -97,8 +95,10 @@ class MainActivity : AppCompatActivity() {
                 // send coordinateEntry in entirety to geo api
                 // if response has entry pull out lat and lon from it
                 val zipCoords = GeoApiService.getCoords(cronetEngine, getCoordsByQueryUrl(coordinateEntry))
-                lat = zipCoords[0]
-                lon = zipCoords[1]
+                if (zipCoords.size > 1) {
+                    lat = zipCoords[0]
+                    lon = zipCoords[1]
+                }
             }
             if (lat != null && lon != null) {
                 addWeather1Fragment(lat, lon, dialogBinding.editTextTabText.text.toString().trim())
@@ -118,8 +118,97 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCoordsByQueryUrl(query: String) : String {
-        val url = "${getString(R.string.geo_general_query)}$query&appid=${getString(R.string.weather_api_key)}"
+        var processedQuery = query
+        val queryTokens = query.split(",")
+        if (queryTokens.size > 1) {
+            var longState = getStateFromAbbr(queryTokens[1].trim())
+            if (longState == null) {
+                longState = queryTokens[1]
+            }
+            var rem = getRemainderAfterElementTwo(queryTokens)
+            processedQuery = "${queryTokens[0]}, $longState, US$rem"
+        }
+        val url = "${getString(R.string.geo_general_query)}$processedQuery&appid=${getString(R.string.weather_api_key)}"
         return url
+    }
+    private val stateMap = mutableMapOf<String, String>(
+        "AL" to "Alabama",
+        "AK" to "Alaska",
+        "AS" to "American Samoa",
+        "AZ" to "Arizona",
+        "AR" to "Arkansas",
+        "CA" to "California",
+        "CO" to "Colorado",
+        "CT" to "Connecticut",
+        "DE" to "Delaware",
+        "DC" to "District of Columbia",
+        "FL" to "Florida",
+        "GA" to "Georgia",
+        "GU" to "Guam",
+        "HI" to "Hawaii",
+        "ID" to "Idaho",
+        "IL" to "Illinois",
+        "IN" to "Indiana",
+        "IA" to "Iowa",
+        "KS" to "Kansas",
+        "KY" to "Kentucky",
+        "LA" to "Louisiana",
+        "ME" to "Maine",
+        "MH" to "Marshall Islands",
+        "MD" to "Maryland",
+        "MA" to "Massachusetts",
+        "MI" to "Michigan",
+        "FM" to "Micronesia",
+        "MN" to "Minnesota",
+        "MS" to "Mississippi",
+        "MO" to "Missouri",
+        "MT" to "Montana",
+        "NE" to "Nebraska",
+        "NV" to "Nevada",
+        "NH" to "New Hampshire",
+        "NJ" to "New Jersey",
+        "NM" to "New Mexico",
+        "NY" to "New York",
+        "NC" to "North Carolina",
+        "ND" to "North Dakota",
+        "MP" to "Northern Marianas",
+        "OH" to "Ohio",
+        "OK" to "Oklahoma",
+        "OR" to "Oregon",
+        "PW" to "Palau",
+        "PA" to "Pennsylvania",
+        "PR" to "Puerto Rico",
+        "RI" to "Rhode Island",
+        "SC" to "South Carolina",
+        "SD" to "South Dakota",
+        "TN" to "Tennessee",
+        "TX" to "Texas",
+        "UT" to "Utah",
+        "VT" to "Vermont",
+        "VI" to "Virgin Islands",
+        "VA" to "Virginia",
+        "WA" to "Washington",
+        "WV" to "West Virginia",
+        "WI" to "Wisconsin",
+        "WY" to "Wyoming"
+    )
+
+    private fun getStateFromAbbr(state: String): String? {
+        val stateUpper = state.uppercase()
+        val longState = stateMap.get(stateUpper)
+        return longState
+    }
+
+    private fun getRemainderAfterElementTwo(strs: List<String>) : String {
+        var result : String = ""
+        var cnt = 0;
+        for (str in strs) {
+            if (cnt > 1) {
+                result += ", $str"
+            }
+            cnt++
+        }
+        return result
     }
 
     inner class PagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
