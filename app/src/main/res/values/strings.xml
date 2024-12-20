@@ -7,6 +7,8 @@
     <string name="weather_wind">Wind: %1$s mph (gusts: %2$s), %3$s</string>
     <string name="weather_icon">weather icon</string>
     <string name="weather_api_url">http://api.openweathermap.org/data/2.5/forecast</string>
+    <string name="geo_general_query">http://api.openweathermap.org/geo/1.0/direct?limit=1&amp;q=</string>
+    <string name="geo_zip_query">http://api.openweathermap.org/geo/1.0/zip?limit=1&amp;zip=</string>
     <string name="sunset">Sunset: %1$s</string>
     <string name="coordinates_hint">latitude, longitude from gmaps (xx.xxx…, yy.yyy…)</string>
     <string name="coordinates_tab_text">Text to identify latitude longitude location</string>

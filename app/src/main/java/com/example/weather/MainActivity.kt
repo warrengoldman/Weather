@@ -13,10 +13,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.weather.databinding.ActivityMainBinding
 import com.example.weather.databinding.DialogAddWeatherLocationBinding
 import com.example.weather.databinding.DialogDeleteWeatherLocationBinding
+import com.example.weather.weather.GeoApiService
 import com.example.weather.weather.WeatherCache
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import org.chromium.net.CronetEngine
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -78,17 +80,46 @@ class MainActivity : AppCompatActivity() {
         val bsd = BottomSheetDialog(this)
         bsd.setContentView(dialogBinding.root)
         dialogBinding.buttonSave.setOnClickListener {
-            val coords = dialogBinding.editTextCoordinates.text.toString().split(",")
-            val lat = coords[0].trim()
-            val lon = coords[1].trim()
-            addWeather1Fragment(lat, lon, dialogBinding.editTextTabText.text.toString().trim())
-            saveWeatherLocation(lat, lon, dialogBinding.editTextTabText.text.toString().trim())
+            val coordinateEntry = dialogBinding.editTextCoordinates.text.toString()
+            val coords = coordinateEntry.split(",")
+            var lat : String? = null
+            var lon : String? = null
+            if (coords.size == 2) {
+                lat = coords[0].trim()
+                lon = coords[1].trim()
+            } else if (coords.size == 1 && coords[0].toIntOrNull() != null){
+                val zipCoords : List<String> = GeoApiService.getCoords(cronetEngine, getCoordsByZipUrl(coords[0].toString().trim()))
+                lat = zipCoords[0]
+                lon = zipCoords[1]
+            }
+
+            if (lat?.toDoubleOrNull() == null || lon?.toDoubleOrNull() == null) {
+                // send coordinateEntry in entirety to geo api
+                // if response has entry pull out lat and lon from it
+                val zipCoords = GeoApiService.getCoords(cronetEngine, getCoordsByQueryUrl(coordinateEntry))
+                lat = zipCoords[0]
+                lon = zipCoords[1]
+            }
+            if (lat != null && lon != null) {
+                addWeather1Fragment(lat, lon, dialogBinding.editTextTabText.text.toString().trim())
+                saveWeatherLocation(lat, lon, dialogBinding.editTextTabText.text.toString().trim())
+            }
             bsd.dismiss()
         }
         dialogBinding.buttonCancel.setOnClickListener {
             bsd.dismiss()
         }
         bsd.show()
+    }
+
+    private fun getCoordsByZipUrl(zip: String) : String {
+        val url = "${getString(R.string.geo_zip_query)}$zip&appid=${getString(R.string.weather_api_key)}"
+        return url
+    }
+
+    private fun getCoordsByQueryUrl(query: String) : String {
+        val url = "${getString(R.string.geo_general_query)}$query&appid=${getString(R.string.weather_api_key)}"
+        return url
     }
 
     inner class PagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
